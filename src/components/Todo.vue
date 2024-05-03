@@ -68,7 +68,7 @@ onMounted(() => {
           type="text"
           name="content"
           id="content"
-          placeholder="Enter a tast to track..."
+          placeholder="e.g. make a video"
           v-model="input_content"
         />
 
@@ -103,35 +103,32 @@ onMounted(() => {
       </form>
     </section>
 
-    <section class="bg-gray-100 py-8">
-        <h3 class="text-lg font-bold mb-4">TODO LIST</h3>
-        <div class="grid gap-4" id="todo-list">
-          <div
-            v-for="todo in todos_asc"
-            :key="todo.id"
-            class="flex flex-col sm:flex-row items-center bg-white rounded-lg shadow-md mb-4 py-2 px-4"
-          >
-            <label class="flex items-center">
-              <input type="checkbox" v-model="todo.done" class="mr-2 text-green-500" />
-              <span
-                class="h-4 w-4 border border-gray-300 rounded-full mr-4"
-                :class="{
-                  'bg-blue-500': todo.category === 'business',
-                  'bg-pink-500': todo.category === 'personal'
-                }"
-              ></span>
-            </label>
-            <div class="flex-grow">
-              <input
-                type="text"
-                v-model="todo.content"
-                class="bg-transparent border-b border-gray-300 focus:outline-none mb-2 sm:mb-0 sm:mr-4"
-              />
-            </div>
-            <button @click="removeTodo(todo)" class="text-red-500 cursor-pointer">Delete</button>
+    <section class="todo-list">
+      <h3>TODO LIST</h3>
+      <div class="list" id="todo-list">
+        <div v-for="todo in todos_asc" :class="`todo-item ${todo.done && 'done'}`">
+          <label>
+            <span :class="`bubble ${todo.category == 'business' ? 'business' : 'personal'}`"></span>
+          </label>
+          <input type="checkbox" v-model="todo.done" />
+
+          <div class="todo-content flex-grow">
+            <input
+              type="text"
+              v-model="todo.content"
+              class="w-full rounded-md py-2 px-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            />
+          </div>
+          <div class="actions">
+            <button
+              class="delete bg-red-500 text-white py-2 px-4 rounded-md cursor-pointer hover:bg-red-600"
+              @click="removeTodo(todo)"
+            >
+              Delete
+            </button>
           </div>
         </div>
-      </section>
-        
+      </div>
+    </section>
   </main>
 </template>
