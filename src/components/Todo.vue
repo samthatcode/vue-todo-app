@@ -106,7 +106,7 @@ onMounted(() => {
     <section class="todo-list">
       <h3>TODO LIST</h3>
       <div class="list" id="todo-list">
-        <div v-for="todo in todos_asc" :class="`todo-item ${todo.done && 'done'}`">
+        <div v-for="todo in todos_asc" :key="todo.id" :class="`todo-item ${todo.done && 'done'}`">
           <label>
             <span :class="`bubble ${todo.category == 'business' ? 'business' : 'personal'}`"></span>
           </label>
